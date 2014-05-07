@@ -1,4 +1,4 @@
 sixpack-bundle
-==============
+===========
 
-Symfony Bundle for sixpack-php
+Symfony2 wrapper around sixpack-php

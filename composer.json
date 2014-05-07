@@ -1,0 +1,20 @@
+{
+    "name": "peerj/sixpack-bundle",
+    "type": "library",
+    "description": "Symfony2 Bundle wrapper around sixpack-php",
+    "keywords": [ "sixpack-php", "api", "bundle" ],
+    "license": "MIT",
+    "authors": [
+    {
+        "name": "Patrick McAndrew",
+        "email": "patrick@peerj.com"
+    }
+    ],
+    "require": {
+        "seatgeek/sixpack-php": "~2.0"
+    },
+    "autoload": {
+       "psr-0": { "Peerj\\Bundle\\SixPackBundle": "" }
+    },
+    "target-dir": "Peerj/Bundle/SixPackBundle"
+}
