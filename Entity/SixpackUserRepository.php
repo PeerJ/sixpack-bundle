@@ -59,6 +59,10 @@ class SixpackUserRepository extends EntityRepository
     public function findAllAssociatedClients($clientId)
     {
         $record = $this->findOneBy(array('client_id' => $clientId));
+        if (!$record) {
+            return null;
+        }
+
         $user_id = $record->getUser()->getId();
 
         return $this->findAllByUserId($user_id);
