@@ -14,9 +14,18 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('baseUrl')->defaultNull()->end()
-                ->scalarNode('cookiePrefix')->defaultNull()->end()
-                ->scalarNode('timeout')->defaultNull()->end()
+                ->scalarNode('defaultClient')->defaultValue('default')->end()
+                ->arrayNode('clients')
+                    ->useAttributeAsKey('name')
+                    ->prototype('array')
+                        ->children()
+                            ->scalarNode('baseUrl')->defaultNull()->end()
+                            ->scalarNode('cookiePrefix')->defaultNull()->end()
+                            ->scalarNode('timeout')->defaultNull()->end()
+                            ->scalarNode('isUser')->defaultFalse()->end()
+                        ->end()
+                    ->end()
+                ->end()
         ;
 
         return $treeBuilder;
