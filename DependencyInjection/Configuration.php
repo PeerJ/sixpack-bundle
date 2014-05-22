@@ -23,6 +23,7 @@ class Configuration implements ConfigurationInterface
                             ->scalarNode('cookiePrefix')->defaultNull()->end()
                             ->scalarNode('timeout')->defaultNull()->end()
                             ->scalarNode('isUser')->defaultFalse()->end()
+                            ->scalarNode('usePhpCookie')->defaultFalse()->end()
                         ->end()
                     ->end()
                 ->end()

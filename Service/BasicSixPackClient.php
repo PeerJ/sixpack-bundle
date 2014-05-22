@@ -3,6 +3,7 @@
 namespace Peerj\Bundle\SixPackBundle\Service;
 
 use Symfony\Component\HttpFoundation\Response;
+use Peerj\Bundle\SixPackBundle\Classes\SixpackBase;
 
 class BasicSixPackClient
 {
@@ -21,7 +22,7 @@ class BasicSixPackClient
             $config['clientId'] = $this->getSessionClientId();
         }
 
-        $this->client = new \SeatGeek\Sixpack\Session\Base($config);
+        $this->client = new SixpackBase($config);
     }
 
     public function newClient($client_id)
@@ -60,5 +61,10 @@ class BasicSixPackClient
     public function convert($experiment, $kpi = null)
     {
         return $this->getClient()->convert($experiment, $kpi);
+    }
+    
+    public function setCookie($response)
+    {
+        $this->getClient()->setCookie($response);
     }
 }
