@@ -3,6 +3,7 @@
 namespace Peerj\Bundle\SixPackBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Peerj\Bundle\SixPackBundle\Model\SixPackUserInterface;
 
 /**
  * Peerj\Bundle\SixPackBundle\Entity\SixpackUser
@@ -24,12 +25,11 @@ class SixpackUser
     /**
      * User the URL belongs to
      *
-     * @ORM\ManyToOne(targetEntity="peerj\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Peerj\Bundle\SixPackBundle\Model\SixPackUserInterface")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
      * @var User
      */
     protected $user;
-
 
     /**
      * @var string $clientId
