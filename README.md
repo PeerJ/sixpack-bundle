@@ -44,44 +44,36 @@ composer.json
     "peerj/sixpack-bundle": "dev-master",
     ...
 }
-    
+
 "repositories": [
     ...
     {
         "type": "git",
         "url": "https://github.com/PeerJ/sixpack-bundle.git"
     },
-    ...    
+    ...
 ]
 ```
 
 config.yml
 --
-(may not be required)
 ```
-doctrine:
-    orm:
-        entity_managers:
-            default:
-                mappings:
-                    PeerjSixPackBundle: ~
-
 peerj_six_pack:
     defaultClient: anon
     clients:
         - { name: anon, baseUrl: %sixpack_url%, cookiePrefix: sixpack, timeout: 500 }
         - { name: user, baseUrl: %sixpack_url%, cookiePrefix: user, timeout: 500, isUser: true }
+    userClass: Acme\UserBundle\Entity\User
 ```
 
 AppKernel.php
 --
 ```
-        $bundles = array(
-                ....
-                new Peerj\Bundle\SixPackBundle\PeerjSixPackBundle(),
-                ....
-                )
-                
+$bundles = array(
+    ...
+    new Peerj\Bundle\SixPackBundle\PeerjSixPackBundle(),
+    ...
+)
 ```
 
 will also need to run ```app/console doctrine:migrations:diff```
