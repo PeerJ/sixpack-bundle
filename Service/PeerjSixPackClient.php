@@ -13,7 +13,7 @@ class PeerjSixPackClient extends SixPackClient
         $this->encrypter = $encrypter;
         parent::__construct($config, $securityContext, $em);
     }
-    
+
     protected function getSessionClientId()
     {
         $clientId = null;
@@ -24,7 +24,7 @@ class PeerjSixPackClient extends SixPackClient
 
         return $clientId;
     }
-    
+
     protected function getDecryptedClientId()
     {
         $clientId = parent::getClientId();
@@ -34,5 +34,4 @@ class PeerjSixPackClient extends SixPackClient
 
         return $clientId;
     }
-    
 }

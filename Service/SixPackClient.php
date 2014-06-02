@@ -3,6 +3,7 @@
 namespace Peerj\Bundle\SixPackBundle\Service;
 
 use Symfony\Component\HttpFoundation\Response;
+use Peerj\Bundle\SixPackBundle\Entity\SixPackUser;
 
 class SixPackClient extends BasicSixPackClient
 {
@@ -22,20 +23,20 @@ class SixPackClient extends BasicSixPackClient
         }
 
         $repo = $this->em->getRepository('PeerjSixPackBundle:SixpackUser');
-        $sixpackUser = $repo->findOneBy(array('user' => $user, 'client_id' => $this->getClientId()));
+        $sixpackUser = $repo->findOneBy(array('user' => $user, 'clientId' => $this->getClientId()));
         if (!$sixpackUser) {
-            $sixpackUser = new \Peerj\Bundle\SixPackBundle\Entity\SixpackUser();
+            $sixpackUser = new SixpackUser();
             $sixpackUser->setUser($user);
             $sixpackUser->setClientId($this->getClientId());
             $this->em->persist($sixpackUser);
             $this->em->flush();
         }
     }
-    
-    public function convert($experiment, $kpi = null, $convert_all = true)
+
+    public function convert($experiment, $kpi = null, $convertAll = true)
     {
         // it only makes sense to convert everything if it not a user
-        if ($this->isUser || !$convert_all) {
+        if ($this->isUser || !$convertAll) {
             return parent::convert($experiment, $kpi);
         }
 
@@ -46,8 +47,8 @@ class SixPackClient extends BasicSixPackClient
             return parent::convert($experiment, $kpi);
         } else {
             foreach ($clients as $client) {
-                $convert_client = $this->newClient($client->getClientId());
-                $convert_client->convert($experiment, $kpi);
+                $convertClient = $this->newClient($client->getClientId());
+                $convertClient->convert($experiment, $kpi);
             }
         }
     }

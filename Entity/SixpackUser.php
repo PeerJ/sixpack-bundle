@@ -22,14 +22,6 @@ class SixpackUser
     protected $id;
 
     /**
-     *
-     */
-    public function __construct()
-    {
-        //parent::__construct();
-    }
-    
-    /**
      * User the URL belongs to
      *
      * @ORM\ManyToOne(targetEntity="peerj\UserBundle\Entity\User")
@@ -38,36 +30,36 @@ class SixpackUser
      */
     protected $user;
 
-    
+
     /**
-     * @var string $client_id
+     * @var string $clientId
      *
      * @ORM\Column(name="client_id", type="string", length=80, nullable=false)
      */
-    protected $client_id;
-    
+    protected $clientId;
+
     public function getId()
     {
         return $this->id;
     }
-    
+
     public function setUser($user)
     {
         $this->user = $user;
     }
-    
+
     public function getUser()
     {
         return $this->user;
     }
-    
-    public function setClientId($client_id)
+
+    public function setClientId($clientId)
     {
-        $this->client_id = $client_id;
+        $this->clientId = $clientId;
     }
-    
+
     public function getClientId()
     {
-        return $this->client_id;
+        return $this->clientId;
     }
 }

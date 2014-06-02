@@ -18,7 +18,7 @@ use Peerj\Bundle\SixPackBundle\Entity\SixpackUser;
 class SixpackUserRepository extends EntityRepository
 {
     /**
-     * Finds all client_ids for a user
+     * Finds all clientIds for a user
      *
      * @param $user
      *
@@ -30,13 +30,13 @@ class SixpackUserRepository extends EntityRepository
     }
 
     /**
-     * Finds all client_ids for a user
+     * Finds all clientIds for a user
      *
      * @param $user
      *
      * @return array|null
      */
-    public function findAllByUserId($user_id)
+    public function findAllByUserId($userId)
     {
         /*
         $query = $em->createQuery('select spu.* from SixpackUser spu Join User u on spu.user = u.id where u.id = :user_id');
@@ -50,9 +50,9 @@ class SixpackUserRepository extends EntityRepository
         */
         $query = $this->createQueryBuilder('spu')
                  ->where('spu.user = :user_id')
-                 ->setParameter('user_id', $user_id)
+                 ->setParameter('user_id', $userId)
                  ->getQuery();
-        
+
         return $query->getResult();
     }
 
@@ -63,8 +63,8 @@ class SixpackUserRepository extends EntityRepository
             return null;
         }
 
-        $user_id = $record->getUser()->getId();
+        $userId = $record->getUser()->getId();
 
-        return $this->findAllByUserId($user_id);
+        return $this->findAllByUserId($userId);
     }
 }
