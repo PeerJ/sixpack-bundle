@@ -66,7 +66,6 @@ class PeerjSixPackExtension extends Extension implements PrependExtensionInterfa
         return $clientIds;
     }
 
-
     /**
      * Allow an extension to prepend the extension configurations.
      *
