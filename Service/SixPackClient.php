@@ -42,7 +42,7 @@ class SixPackClient extends BasicSixPackClient
 
         $repo = $this->em->getRepository('PeerjSixPackBundle:SixpackUser');
         $clients = $repo->findAllAssociatedClients($this->getClientId());
-        if (!$client) {
+        if (!$clients) {
             // if no associated clients clients, just convert current client
             return parent::convert($experiment, $kpi);
         } else {

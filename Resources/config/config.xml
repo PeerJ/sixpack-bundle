@@ -5,9 +5,9 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <!-- <parameter key="sixpack.client.class">Peerj\Bundle\SixPackBundle\Service\SixPackClient</parameter> -->
-        <parameter key="sixpack.client.class">Peerj\Bundle\SixPackBundle\Service\PeerjSixPackClient</parameter>
+        <parameter key="sixpack.client.class">Peerj\Bundle\SixPackBundle\Service\SixPackClient</parameter>
         <parameter key="sixpack.listener.authentication.class">Peerj\Bundle\SixPackBundle\Listener\LoginListener</parameter>
+        <parameter key="sixpack.twig.sixpack_extension.class">Peerj\Bundle\SixPackBundle\Twig\SixPackExtension</parameter>
     </parameters>
 
     <services>
@@ -22,6 +22,11 @@
             <argument type="service" id="security.context" />
             <argument type="service" id="logger" />
             <argument type="service" id="sixpack.client" />
-        </service>        
+        </service>
+
+        <service id="sixpack.twig.sixpack_extension" class="%sixpack.twig.sixpack_extension.class%">
+            <argument type="service" id="sixpack.client" />
+            <tag name="twig.extension" />
+        </service>
     </services>
 </container>
