@@ -5,7 +5,7 @@ namespace Peerj\Bundle\SixPackBundle\Classes;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Cookie;
 
-class SixpackBase extends \SeatGeek\Sixpack\Session\Base
+class SixPackBase extends \SeatGeek\Sixpack\Session\Base
 {
     protected $cookie;
     protected $usePhpCookie;
@@ -14,7 +14,7 @@ class SixpackBase extends \SeatGeek\Sixpack\Session\Base
     {
         if (isset($options["usePhpCookie"])) {
             $this->usePhpCookie = $options["usePhpCookie"];
-        }        
+        }
         parent::__construct($options);
     }
 

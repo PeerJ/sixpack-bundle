@@ -38,16 +38,6 @@ class SixpackUserRepository extends EntityRepository
      */
     public function findAllByUserId($userId)
     {
-        /*
-        $query = $em->createQuery('select spu.* from SixpackUser spu Join User u on spu.user = u.id where u.id = :user_id');
-        $query = $this->createQueryBuilder()
-            ->select('spu')
-            ->from('SixPackUser', 'spu')
-            ->join('spu.User', 'u', Expr\Join::With, 'spu.user_id = u.id')
-            ->where('u.id = :user_id')
-            ->setParameter('user_id', $user_id)
-            ->getQuery();
-        */
         $query = $this->createQueryBuilder('spu')
                  ->where('spu.user = :user_id')
                  ->setParameter('user_id', $userId)
@@ -58,7 +48,8 @@ class SixpackUserRepository extends EntityRepository
 
     public function findAllAssociatedClients($clientId)
     {
-        $record = $this->findOneBy(array('client_id' => $clientId));
+        $record = $this->findOneBy(array('clientId' => $clientId));
+
         if (!$record) {
             return null;
         }

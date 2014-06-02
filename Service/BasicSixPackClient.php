@@ -3,7 +3,7 @@
 namespace Peerj\Bundle\SixPackBundle\Service;
 
 use Symfony\Component\HttpFoundation\Response;
-use Peerj\Bundle\SixPackBundle\Classes\SixpackBase;
+use Peerj\Bundle\SixPackBundle\Classes\SixPackBase;
 
 class BasicSixPackClient
 {
@@ -16,19 +16,20 @@ class BasicSixPackClient
     {
         $this->config = $config;
         $this->securityContext = $securityContext;
-        $clientId = null;
         $this->isUser = $config['isUser'];
+
         if ($this->isUser) {
             $config['clientId'] = $this->getSessionClientId();
         }
 
-        $this->client = new SixpackBase($config);
+        $this->client = new SixPackBase($config);
     }
 
     public function newClient($clientId)
     {
         $newConfig = $this->config;
         $newConfig['clientId'] = $clientId;
+
         return new BasicSixPackClient($newConfig, $this->securityContext);
     }
 
