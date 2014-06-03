@@ -28,7 +28,7 @@ class LoginListener implements EventSubscriberInterface
 
     /** @var LoggerInterface */
     protected $logger;
-    
+
     protected $client;
 
     /**
@@ -40,7 +40,7 @@ class LoginListener implements EventSubscriberInterface
     {
         $this->securityContext = $securityContext;
         $this->logger = $logger;
-        $this->client = $client;        
+        $this->client = $client;
     }
 
     /**

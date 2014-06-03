@@ -21,8 +21,6 @@ class BasicSixPackClient
         if ($this->isUser) {
             $config['clientId'] = $this->getSessionClientId();
         }
-
-        $this->client = new SixPackBase($config);
     }
 
     public function newClient($clientId)
@@ -51,6 +49,10 @@ class BasicSixPackClient
 
     public function getClient()
     {
+        if (!$this->client) {
+            $this->client = new SixPackBase($this->config);
+        }
+
         return $this->client;
     }
 
