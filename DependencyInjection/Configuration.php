@@ -27,6 +27,8 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
+                ->scalarNode('userClass')->isRequired()->cannotBeEmpty()->end()
+            ->end()
         ;
 
         return $treeBuilder;

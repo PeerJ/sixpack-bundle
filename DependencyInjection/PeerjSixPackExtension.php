@@ -9,8 +9,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 
-class PeerjSixPackExtension extends Extension
+class PeerjSixPackExtension extends Extension implements PrependExtensionInterface
 {
     /**
      * Build the extension services
@@ -29,9 +30,9 @@ class PeerjSixPackExtension extends Extension
         $config = $processor->processConfiguration($configuration, $configs);
 
         $clientIdsByName = $this->loadClients($config['clients'], $container);
-        $container->setAlias('sixpack.client', sprintf('sixpack.client.%s', $config['defaultClient']));        
+        $container->setAlias('sixpack.client', sprintf('sixpack.client.%s', $config['defaultClient']));
     }
-    
+
     /**
      * Loads the configured clients.
      *
@@ -64,5 +65,38 @@ class PeerjSixPackExtension extends Extension
 
         return $clientIds;
     }
-    
+
+    /**
+     * Allow an extension to prepend the extension configurations.
+     *
+     * @param ContainerBuilder $container
+     */
+    public function prepend(ContainerBuilder $container)
+    {
+        // get all Bundles
+        $bundles = $container->getParameter('kernel.bundles');
+
+        if (isset($bundles['DoctrineBundle'])) {
+            // Get configuration of our own bundle
+            $configs = $container->getExtensionConfig($this->getAlias());
+            $config = $this->processConfiguration(new Configuration(), $configs);
+
+            // Prepare for insertion
+            $forInsertion = array(
+                'orm' => array(
+                    'resolve_target_entities' => array(
+                        'Peerj\Bundle\SixPackBundle\Model\SixPackUserInterface' => $config['userClass']
+                    )
+                )
+            );
+
+            foreach ($container->getExtensions() as $name => $extension) {
+                switch ($name) {
+                    case 'doctrine':
+                        $container->prependExtensionConfig($name, $forInsertion);
+                        break;
+                }
+            }
+        }
+    }
 }

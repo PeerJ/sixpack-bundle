@@ -3,6 +3,7 @@
 namespace Peerj\Bundle\SixPackBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Peerj\Bundle\SixPackBundle\Model\SixPackUserInterface;
 
 /**
  * Peerj\Bundle\SixPackBundle\Entity\SixpackUser
@@ -22,52 +23,43 @@ class SixpackUser
     protected $id;
 
     /**
-     *
-     */
-    public function __construct()
-    {
-        //parent::__construct();
-    }
-    
-    /**
      * User the URL belongs to
      *
-     * @ORM\ManyToOne(targetEntity="peerj\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Peerj\Bundle\SixPackBundle\Model\SixPackUserInterface")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
      * @var User
      */
     protected $user;
 
-    
     /**
-     * @var string $client_id
+     * @var string $clientId
      *
      * @ORM\Column(name="client_id", type="string", length=80, nullable=false)
      */
-    protected $client_id;
-    
+    protected $clientId;
+
     public function getId()
     {
         return $this->id;
     }
-    
+
     public function setUser($user)
     {
         $this->user = $user;
     }
-    
+
     public function getUser()
     {
         return $this->user;
     }
-    
-    public function setClientId($client_id)
+
+    public function setClientId($clientId)
     {
-        $this->client_id = $client_id;
+        $this->clientId = $clientId;
     }
-    
+
     public function getClientId()
     {
-        return $this->client_id;
+        return $this->clientId;
     }
 }

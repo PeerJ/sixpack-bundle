@@ -3,7 +3,7 @@
 namespace Peerj\Bundle\SixPackBundle\Service;
 
 use Symfony\Component\HttpFoundation\Response;
-use Peerj\Bundle\SixPackBundle\Classes\SixpackBase;
+use Peerj\Bundle\SixPackBundle\Classes\SixPackBase;
 
 class BasicSixPackClient
 {
@@ -16,20 +16,21 @@ class BasicSixPackClient
     {
         $this->config = $config;
         $this->securityContext = $securityContext;
-        $clientId = null;
         $this->isUser = $config['isUser'];
+
         if ($this->isUser) {
             $config['clientId'] = $this->getSessionClientId();
         }
 
-        $this->client = new SixpackBase($config);
+        $this->client = new SixPackBase($config);
     }
 
-    public function newClient($client_id)
+    public function newClient($clientId)
     {
-        $new_config = $this->config;
-        $new_config['clientId'] = $client_id;
-        return new BasicSixPackClient($new_config, $this->securityContext);
+        $newConfig = $this->config;
+        $newConfig['clientId'] = $clientId;
+
+        return new BasicSixPackClient($newConfig, $this->securityContext);
     }
 
     protected function getSessionClientId()
@@ -39,7 +40,7 @@ class BasicSixPackClient
             $user = $this->securityContext->getToken()->getUser();
             $userId = $user->getId();
         }
-        
+
         return $userId;
     }
 
@@ -47,22 +48,22 @@ class BasicSixPackClient
     {
         return $this->getClient()->getClientid();
     }
-    
+
     public function getClient()
     {
         return $this->client;
     }
 
-    public function participate($experiment, $alternatives, $traffic_fraction = 1)
+    public function participate($experiment, $alternatives, $trafficFraction = 1)
     {
-        return $this->getClient()->participate($experiment, $alternatives, $traffic_fraction);
+        return $this->getClient()->participate($experiment, $alternatives, $trafficFraction);
     }
-    
+
     public function convert($experiment, $kpi = null)
     {
         return $this->getClient()->convert($experiment, $kpi);
     }
-    
+
     public function setCookie($response)
     {
         $this->getClient()->setCookie($response);
