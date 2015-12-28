@@ -4,18 +4,19 @@ namespace Peerj\Bundle\SixPackBundle\Service;
 
 use Symfony\Component\HttpFoundation\Response;
 use Peerj\Bundle\SixPackBundle\Classes\SixPackBase;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class BasicSixPackClient
 {
-    protected $securityContext;
+    protected $tokenStorage;
     protected $client;
     protected $isUser;
     protected $config;
 
-    public function __construct($config, $securityContext)
+    public function __construct($config, TokenStorageInterface $tokenStorage)
     {
         $this->config = $config;
-        $this->securityContext = $securityContext;
+        $this->tokenStorage = $tokenStorage;
         $this->isUser = $config['isUser'];
 
         if ($this->isUser) {
@@ -28,14 +29,14 @@ class BasicSixPackClient
         $newConfig = $this->config;
         $newConfig['clientId'] = $clientId;
 
-        return new BasicSixPackClient($newConfig, $this->securityContext);
+        return new BasicSixPackClient($newConfig, $this->tokenStorage);
     }
 
     protected function getSessionClientId()
     {
         $userId = null;
-        if ($this->securityContext->getToken()) {
-            $user = $this->securityContext->getToken()->getUser();
+        if ($token = $this->tokenStorage->getToken()) {
+            $user = $token->getUser();
             $userId = $user->getId();
         }
 

@@ -4,15 +4,16 @@ namespace Peerj\Bundle\SixPackBundle\Service;
 
 use Symfony\Component\HttpFoundation\Response;
 use Peerj\Bundle\SixPackBundle\Entity\SixPackUser;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class SixPackClient extends BasicSixPackClient
 {
     protected $em;
 
-    public function __construct($config, $securityContext, $em)
+    public function __construct($config, TokenStorageInterface $tokenStorage, $em)
     {
         $this->em = $em;
-        parent::__construct($config, $securityContext);
+        parent::__construct($config, $tokenStorage);
     }
 
     public function registerUser($user)
