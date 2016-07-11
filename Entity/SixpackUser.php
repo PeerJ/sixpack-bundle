@@ -8,7 +8,9 @@ use Peerj\Bundle\SixPackBundle\Model\SixPackUserInterface;
 /**
  * Peerj\Bundle\SixPackBundle\Entity\SixpackUser
  *
- * @ORM\Table(name="sixpack_user")
+ * @ORM\Table(name="sixpack_user", indexes={
+ *     @ORM\Index(name="idx_user_client", columns={"user_id", "client_id"})
+ * })
  * @ORM\Entity(repositoryClass="Peerj\Bundle\SixPackBundle\Entity\SixpackUserRepository")
  */
 class SixpackUser
