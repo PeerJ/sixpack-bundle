@@ -4,7 +4,6 @@ namespace Peerj\Bundle\SixPackBundle\Listener;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\SecurityEvents;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,22 +22,17 @@ use Psr\Log\LoggerInterface;
  */
 class LoginListener implements EventSubscriberInterface
 {
-    /** @var SecurityContextInterface  */
-    private $securityContext;
-
     /** @var LoggerInterface */
     protected $logger;
 
     protected $client;
 
     /**
-     * @param SecurityContextInterface $securityContext
      * @param LoggerInterface          $logger
      * @param                          $client
      */
-    public function __construct(SecurityContextInterface $securityContext, LoggerInterface $logger, $client)
+    public function __construct(LoggerInterface $logger, $client)
     {
-        $this->securityContext = $securityContext;
         $this->logger = $logger;
         $this->client = $client;
     }

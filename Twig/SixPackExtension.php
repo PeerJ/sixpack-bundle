@@ -16,8 +16,8 @@ class SixPackExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'sixpackParticipate' =>  new \Twig_Function_Method($this, 'participate'),
-            'sixpackConvert'     =>  new \Twig_Function_Method($this, 'convert'),
+            'sixpackParticipate' =>  new \Twig_SimpleFunction('sixpackParticipate', [$this, 'participate']),
+            'sixpackConvert'     =>  new \Twig_SimpleFunction('sixpackConvert', [$this, 'convert']),
         );
     }
 

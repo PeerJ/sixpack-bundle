@@ -13,13 +13,12 @@
     <services>
         <service id="sixpack.client" class="%sixpack.client.class%">
             <argument /> <!-- array -->
-            <argument type="service" id="security.context" />
+            <argument type="service" id="security.token_storage" />
             <argument type="service" id="doctrine.orm.entity_manager" />
         </service>
 
         <service id="sixpack.listener.authentication" class="%sixpack.listener.authentication.class%">
             <tag name="kernel.event_subscriber" />
-            <argument type="service" id="security.context" />
             <argument type="service" id="logger" />
             <argument type="service" id="sixpack.client" />
         </service>
